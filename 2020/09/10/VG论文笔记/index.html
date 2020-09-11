@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Referring Expression Comprehension: A Survey of Methods and DatasetsDefinitionVisual Grounding： 从一个描述场景的句子中，根据句中的多个名词短语，从图片中选出与名词短语匹配的多个目标区域。 Referring Expression Comprehension：根据给定的表达，从图片中选出最佳匹配的区域。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Referring Expression Comprehension:A Survey of Methods and Datasets">
+<meta property="og:url" content="http://yoursite.com/2020/09/10/VG%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="不要和孙家人对波">
+<meta property="og:description" content="Referring Expression Comprehension: A Survey of Methods and DatasetsDefinitionVisual Grounding： 从一个描述场景的句子中，根据句中的多个名词短语，从图片中选出与名词短语匹配的多个目标区域。 Referring Expression Comprehension：根据给定的表达，从图片中选出最佳匹配的区域。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/%E6%95%B0%E6%8D%AE%E5%BA%93.png">
+<meta property="og:image" content="http://yoursite.com/images/%E7%BB%93%E6%9E%9C.png">
+<meta property="article:published_time" content="2020-09-10T15:28:08.640Z">
+<meta property="article:modified_time" content="2020-09-11T14:28:45.136Z">
+<meta property="article:author" content="Zacks Chen">
+<meta property="article:tag" content="Visual Grounding">
+<meta property="article:tag" content="Referring Expression Comprehension">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/%E6%95%B0%E6%8D%AE%E5%BA%93.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/09/10/VG%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Referring Expression Comprehension:A Survey of Methods and Datasets | 不要和孙家人对波</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">不要和孙家人对波</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/zackschen" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/10/VG%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.jpeg">
+      <meta itemprop="name" content="Zacks Chen">
+      <meta itemprop="description" content="记录研究生生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不要和孙家人对波">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Referring Expression Comprehension:A Survey of Methods and Datasets
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-10 23:28:08" itemprop="dateCreated datePublished" datetime="2020-09-10T23:28:08+08:00">2020-09-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-11 22:28:45" itemprop="dateModified" datetime="2020-09-11T22:28:45+08:00">2020-09-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Visual-Grounding/" itemprop="url" rel="index"><span itemprop="name">Visual Grounding</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Visual-Grounding/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Referring-Expression-Comprehension-A-Survey-of-Methods-and-Datasets"><a href="#Referring-Expression-Comprehension-A-Survey-of-Methods-and-Datasets" class="headerlink" title="Referring Expression Comprehension: A Survey of Methods and Datasets"></a>Referring Expression Comprehension: A Survey of Methods and Datasets</h1><h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><h5 id="Visual-Grounding："><a href="#Visual-Grounding：" class="headerlink" title="Visual Grounding："></a>Visual Grounding：</h5><p> 从一个描述场景的句子中，根据句中的多个名词短语，从图片中选出与名词短语匹配的多个目标区域。</p>
+<h5 id="Referring-Expression-Comprehension："><a href="#Referring-Expression-Comprehension：" class="headerlink" title="Referring Expression Comprehension："></a>Referring Expression Comprehension：</h5><p>根据给定的表达，从图片中选出最佳匹配的区域。</p>
+<p>两者都需要理解所给<strong>描述的语义</strong>以及<strong>图片的视觉信息</strong>，并找出其中的目标、属性、区域等关系来进行匹配。</p>
+<a id="more"></a>
+
+<h3 id="Challenge"><a href="#Challenge" class="headerlink" title="Challenge"></a>Challenge</h3><p>1.所给的语句的长度；有些语句很长，能够从中提取出很多目标的特性和联系，而有的语句很短，提供的信息不是很充分。</p>
+<p>2.图像的维数高，比纯文本来说要更容易受到噪声影响。</p>
+<p>3.图像不像语句那样具有结构和语法规则，因此不能有效和方便的像语句那样使用<code>syntactic</code> parser来进行处理。</p>
+<h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h3><h4 id="1-Joint-embedding-approaches"><a href="#1-Joint-embedding-approaches" class="headerlink" title="1.Joint embedding approaches"></a>1.Joint embedding approaches</h4><h5 id="1-1-CNN-LSTM-framework"><a href="#1-1-CNN-LSTM-framework" class="headerlink" title="1.1.CNN/LSTM framework"></a>1.1.CNN/LSTM framework</h5><p>尝试将语句和图片embed进入同一个特征空间。对于图片，使用CNN来生成图片的特征向量，这种表示形式能够用于多种视觉任务。对于语句描述，和image captioning一样，使用LSTM来获取语句描述的特性。</p>
+<p>使用CNN捕获出来的目标区域和语句描述形成的字符向量作为输入，输入到LSTM中，然后通过最大化字符向量和目标区域匹配的可能性来训练。</p>
+<h5 id="1-Generation-and-comprehension-of-unambiguous-object-descriptions"><a href="#1-Generation-and-comprehension-of-unambiguous-object-descriptions" class="headerlink" title="1.Generation and comprehension of unambiguous object descriptions"></a>1.Generation and comprehension of unambiguous object descriptions</h5><p>作者使用在ImageNet上预训练的CNN模型来导出图片中bounding box区域的视觉特性，使用LSTM网络来捕获文本特性。</p>
+<p>在训练中，使用最大似然训练，来达到目标区域的可能性最高，其他区域的可能性低的分类。作者还提出了maximum mutual information (MMI)方法，如果匹配到了其他的目标区域，那么model会被penalized。</p>
+<h5 id="2-Modeling-context-in-referring-expressions"><a href="#2-Modeling-context-in-referring-expressions" class="headerlink" title="2.Modeling context in referring expressions"></a>2.Modeling context in referring expressions</h5><p>作者提出了一个Visual comparative method (Visdif)来区分图片中目标对象和周围的事物，来达到更好的提取作用，Visdif聚焦于目标和表述种类的联系，并使用这种目标之间的视觉差别来表示视觉上下午，以提高匹配性能。</p>
+<h4 id="1-2-Attention-mechanism"><a href="#1-2-Attention-mechanism" class="headerlink" title="1.2.Attention mechanism"></a>1.2.Attention mechanism</h4><p>Attention机制能够通过视觉和语言的信息来生成元素之间的联系情况，来生成语义丰富的视觉和文本表示特性。</p>
+<h5 id="1-Parallel-attention-A-unified-framework-for-visual-object-discovery-through-dialogs-and-queries"><a href="#1-Parallel-attention-A-unified-framework-for-visual-object-discovery-through-dialogs-and-queries" class="headerlink" title="1.Parallel attention: A unified framework for visual object discovery through dialogs and queries"></a>1.Parallel attention: A unified framework for visual object discovery through dialogs and queries</h5><p>作者提出了一种Parallel Attention (PLAN)方法，该方法包含了2个并列的attention处理机制来分别处理image-level和region-level的信息。</p>
+<p>image-level的attention模块编码图片的整个全局信息，并通过反复地attention到不同的图像patches来参照语言描述，这样能使模型使用语言相关的上下文信息。region-level的attention模块反复的注意于通过语言生成的proposal上，以获得对每个proposal的表述。最后全局image和proposal的表示都被传入一个匹配模块中来匹配每个proposal的匹配度。</p>
+<h5 id="2-Visual-grounding-via-accumulated-attention"><a href="#2-Visual-grounding-via-accumulated-attention" class="headerlink" title="2.Visual grounding via accumulated attention"></a>2.Visual grounding via accumulated attention</h5><p>作者提出了Accumulated Attention (AccumAtt)机制来处理：1，识别查询中的主要关注点；2，理解图片；3，定位最相关的目标。</p>
+<p>AccumAtt采用了3个attention模块来分别处理上面的3个task。为了捕获3个attention之间的联系，AccumAtt另外采用了一个积累过程来结合这3个attention并循环采用2个attention来对另一个attention进行调优。最后，AccumAtt通过对每个proposal的表示和attention的表示的匹配分数来定位目标。</p>
+<h4 id="2-Modular-based-Models"><a href="#2-Modular-based-Models" class="headerlink" title="2.Modular-based Models"></a>2.Modular-based Models</h4><p>通过将表述分解成不同的部件并通过基于模块的网络来对每个部件以及对应的视觉区域进行匹配。</p>
+<h5 id="2-1-Modeling-relationships-in-referential-expressions-with-compositional-modular-networks"><a href="#2-1-Modeling-relationships-in-referential-expressions-with-compositional-modular-networks" class="headerlink" title="2.1 Modeling relationships in referential expressions with compositional modular networks"></a>2.1 Modeling relationships in referential expressions with compositional modular networks</h5><p>作者提出了一个Compositional Modular Networks(CMNs)来端对端的分析语言和视觉推理。CMNs由一个定位模块和一个关系模块组成。定位模块匹配每个图像区域的目标并返回一个分数；关系模块匹配成对区域之间的联系并返回他们之间的关系分数。CMNs首先通过soft attention来将描述解析成为主体、关系和目标，之后使用2个模块组合来获得区域的特征和区域之间的相互影响。</p>
+<h5 id="2-2-Improving-referring-expression-grounding-with-cross-modal-attention-guided-erasing"><a href="#2-2-Improving-referring-expression-grounding-with-cross-modal-attention-guided-erasing" class="headerlink" title="2.2 Improving referring expression grounding with cross-modal attention-guided erasing"></a>2.2 Improving referring expression grounding with cross-modal attention-guided erasing</h5><p>作者提出了一个以MAttNet为主干的Cross-Modal Attention-guided Erasing(CM-Att-Erase)策略，在训练过程中，通过去掉视觉和语言最表面的信息，CM-Att-Erase能够学习更加潜在的信息。CM-Att-Erase将location和relation组合为一个统一结构以选取可能性最高的目标。</p>
+<h4 id="3-Graph-based-models"><a href="#3-Graph-based-models" class="headerlink" title="3.Graph based models"></a>3.Graph based models</h4><p>通过图模型，节点代表关联目标，边代表目标之间的关系，能够更好的学习目标之间的潜在关系。</p>
+<h5 id="3-1-Learning-cross-modal-context-graph-for-visual-grounding"><a href="#3-1-Learning-cross-modal-context-graph-for-visual-grounding" class="headerlink" title="3.1 Learning cross-modal context graph for visual grounding"></a>3.1 Learning cross-modal context graph for visual grounding</h5><p>通过基于语言导向的图表示来提取全局的上下文信息和目标之间关系，另外，他们也提出了一个跨模态的图匹配策略(CMCC)，这篇后面单独讲。</p>
+<h4 id="4-External-parser"><a href="#4-External-parser" class="headerlink" title="4. External parser"></a>4. External parser</h4><p>通过外部语言解析器，基于语法的模型方法能够通过额外的目标信息来定位目标。</p>
+<h5 id="4-1-Learning-to-assemble-neural-module-tree-networks-for-visual-grounding"><a href="#4-1-Learning-to-assemble-neural-module-tree-networks-for-visual-grounding" class="headerlink" title="4.1 Learning to assemble neural module tree networks for visual grounding"></a>4.1 Learning to assemble neural module tree networks for visual grounding</h5><p>作者开发出了Neural Module Tree network (NMTree)，通过积累句子中的Dependency Parsing Tree (DPT) 中的置信度来定位目标区域。</p>
+<p>给定一条语句，首先通过Dependency Parsing Tree (DPT)、Bidirectional Tree LSTM和Module Assembler来将它转换为NMTree，由根节点的输出分数为最终结果得分。</p>
+<h4 id="5-Weakly-supervised"><a href="#5-Weakly-supervised" class="headerlink" title="5.Weakly supervised"></a>5.Weakly supervised</h4><p>传统的referring expression需要大量的数据标注，弱监督referring expression通过语言的查询来定位图片中的目标，在这个阶段中，目标对象和查询对象之间的映射是未知的。</p>
+<h5 id="5-1-Adaptive-reconstruction-network-for-weakly-supervised-referring-expression-grounding"><a href="#5-1-Adaptive-reconstruction-network-for-weakly-supervised-referring-expression-grounding" class="headerlink" title="5.1 Adaptive reconstruction network for weakly supervised referring expression grounding"></a>5.1 Adaptive reconstruction network for weakly supervised referring expression grounding</h5><p>作者提出了adaptive reconstruction network(ARN)，采用适应性grounding和协同重建来建立查询和proposal之间的联系。</p>
+<p>首先，他们提取出目标、位置和上下文特性来表示proposal和查询目标；然后适应性grounding模块通过阶级式attention来计算每个proposal和查询之间的匹配分数；最后，使用语言重建loss中的合同loss、适应性重建loss和属性分类loss来进行训练。</p>
+<h4 id="6-One-stage-approaches"><a href="#6-One-stage-approaches" class="headerlink" title="6.One stage approaches"></a>6.One stage approaches</h4><p>现目前的referring expression comprehension都是一种2段式方法：首先，使用类似Faster RCNN的目标检测器来生成一系列目标的proposal，然后，计算proposal和语言描述中的匹配度来选取最佳的目标。</p>
+<p>这种方法有2个问题：1，目标检测阶段有额外的计算量，大量的proposal需要大量的计算来获取其中的feature，这样在实际的实时referring expression comprehension中不可行。2，第一个阶段中提出的proposal会影响到第二阶段的计算，现目前的目标检测器在实际情况下的性能有限，可能会阻碍到第二阶段的进行；甚至于第一阶段的目标检测未检测出目标proposal，那第二阶段的工作都浪费了。</p>
+<h5 id="6-1-A-fast-and-accurate-one-stage-approach-to-visual-grounding"><a href="#6-1-A-fast-and-accurate-one-stage-approach-to-visual-grounding" class="headerlink" title="6.1 A fast and accurate one-stage approach to visual grounding"></a>6.1 A fast and accurate one-stage approach to visual grounding</h5><p>作者提出了基于YOLOv3的one-stage referring expression comprehension approach (FAOA)方法。通过Darknet来获得图片的feature金字塔，并且通过BERT来获取语言feature；然后针对feature金字塔中的每一层，将语言特性和图像特性级联并喂入预测模块来预测出目标区域的bounding box。</p>
+<h4 id="7-Vision-Language-pre-training"><a href="#7-Vision-Language-pre-training" class="headerlink" title="7.Vision-Language pre-training"></a>7.Vision-Language pre-training</h4><p>之前的主流策略都是使用分开的视觉和语言模型来进行训练，使得模型缺少视觉和语言的统一表示基础，这使得当数据很少或者受限的时候泛化能力并不好。而通过视觉语言的预训练模型，可以获得基于视觉和语言的统一表示，对下游的任务很有帮助。</p>
+<h5 id="7-1-Vilbert-Pretraining-task-agnostic-visiolinguistic-representations-for-vision-and-language-tasks"><a href="#7-1-Vilbert-Pretraining-task-agnostic-visiolinguistic-representations-for-vision-and-language-tasks" class="headerlink" title="7.1 Vilbert: Pretraining task-agnostic visiolinguistic representations for vision-and-language tasks"></a>7.1 Vilbert: Pretraining task-agnostic visiolinguistic representations for vision-and-language tasks</h5><p>作者提出了ViLBERT框架，通过在大量数据的vision-language数据集进行预训练，掌握视觉和语言的信息来处理多重vison-language任务。</p>
+<p>ViLBERT包含了2个branch，一个来获取语言信息，一个获取视觉信息。每个branch又由2个不同的layer组成，the Transformer Layer (TRM) 和 the proposed Co-Attentional Transformer Layer (Co-TRM)，Co-TRM用来连接2个branch。</p>
+<p>ViLBERT首先通过预训练的目标检测模型来提出proposal，然后Co-TRM通过计算每个proposal和语言信息中的token之间的跨模态attention分数。</p>
+<h3 id="DATASETS-AND-EVALUATION"><a href="#DATASETS-AND-EVALUATION" class="headerlink" title="DATASETS AND EVALUATION"></a>DATASETS AND EVALUATION</h3><p><img src="/images/%E6%95%B0%E6%8D%AE%E5%BA%93.png" alt="数据库"></p>
+<h3 id="Evaluation-Measures"><a href="#Evaluation-Measures" class="headerlink" title="Evaluation Measures"></a>Evaluation Measures</h3><p>使用预测box和真实box之间的Intersection over Union (IoU)来进行评价。IoU大于0.5即为成功，小于0.5即为失败。</p>
+<p><img src="/images/%E7%BB%93%E6%9E%9C.png" alt="结果"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Visual-Grounding/" rel="tag"># Visual Grounding</a>
+              <a href="/tags/Referring-Expression-Comprehension/" rel="tag"># Referring Expression Comprehension</a>
+          </div>
+
+        
+
+
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Referring-Expression-Comprehension-A-Survey-of-Methods-and-Datasets"><span class="nav-number">1.</span> <span class="nav-text">Referring Expression Comprehension: A Survey of Methods and Datasets</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Definition"><span class="nav-number">1.0.1.</span> <span class="nav-text">Definition</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Visual-Grounding%EF%BC%9A"><span class="nav-number">1.0.1.0.1.</span> <span class="nav-text">Visual Grounding：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Referring-Expression-Comprehension%EF%BC%9A"><span class="nav-number">1.0.1.0.2.</span> <span class="nav-text">Referring Expression Comprehension：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge"><span class="nav-number">1.0.2.</span> <span class="nav-text">Challenge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method"><span class="nav-number">1.0.3.</span> <span class="nav-text">Method</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Joint-embedding-approaches"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">1.Joint embedding approaches</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-CNN-LSTM-framework"><span class="nav-number">1.0.3.1.1.</span> <span class="nav-text">1.1.CNN&#x2F;LSTM framework</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Generation-and-comprehension-of-unambiguous-object-descriptions"><span class="nav-number">1.0.3.1.2.</span> <span class="nav-text">1.Generation and comprehension of unambiguous object descriptions</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Modeling-context-in-referring-expressions"><span class="nav-number">1.0.3.1.3.</span> <span class="nav-text">2.Modeling context in referring expressions</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-Attention-mechanism"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">1.2.Attention mechanism</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Parallel-attention-A-unified-framework-for-visual-object-discovery-through-dialogs-and-queries"><span class="nav-number">1.0.3.2.1.</span> <span class="nav-text">1.Parallel attention: A unified framework for visual object discovery through dialogs and queries</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Visual-grounding-via-accumulated-attention"><span class="nav-number">1.0.3.2.2.</span> <span class="nav-text">2.Visual grounding via accumulated attention</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Modular-based-Models"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">2.Modular-based Models</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-Modeling-relationships-in-referential-expressions-with-compositional-modular-networks"><span class="nav-number">1.0.3.3.1.</span> <span class="nav-text">2.1 Modeling relationships in referential expressions with compositional modular networks</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-Improving-referring-expression-grounding-with-cross-modal-attention-guided-erasing"><span class="nav-number">1.0.3.3.2.</span> <span class="nav-text">2.2 Improving referring expression grounding with cross-modal attention-guided erasing</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Graph-based-models"><span class="nav-number">1.0.3.4.</span> <span class="nav-text">3.Graph based models</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-Learning-cross-modal-context-graph-for-visual-grounding"><span class="nav-number">1.0.3.4.1.</span> <span class="nav-text">3.1 Learning cross-modal context graph for visual grounding</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-External-parser"><span class="nav-number">1.0.3.5.</span> <span class="nav-text">4. External parser</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-Learning-to-assemble-neural-module-tree-networks-for-visual-grounding"><span class="nav-number">1.0.3.5.1.</span> <span class="nav-text">4.1 Learning to assemble neural module tree networks for visual grounding</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Weakly-supervised"><span class="nav-number">1.0.3.6.</span> <span class="nav-text">5.Weakly supervised</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-Adaptive-reconstruction-network-for-weakly-supervised-referring-expression-grounding"><span class="nav-number">1.0.3.6.1.</span> <span class="nav-text">5.1 Adaptive reconstruction network for weakly supervised referring expression grounding</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-One-stage-approaches"><span class="nav-number">1.0.3.7.</span> <span class="nav-text">6.One stage approaches</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-1-A-fast-and-accurate-one-stage-approach-to-visual-grounding"><span class="nav-number">1.0.3.7.1.</span> <span class="nav-text">6.1 A fast and accurate one-stage approach to visual grounding</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-Vision-Language-pre-training"><span class="nav-number">1.0.3.8.</span> <span class="nav-text">7.Vision-Language pre-training</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-Vilbert-Pretraining-task-agnostic-visiolinguistic-representations-for-vision-and-language-tasks"><span class="nav-number">1.0.3.8.1.</span> <span class="nav-text">7.1 Vilbert: Pretraining task-agnostic visiolinguistic representations for vision-and-language tasks</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DATASETS-AND-EVALUATION"><span class="nav-number">1.0.4.</span> <span class="nav-text">DATASETS AND EVALUATION</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Evaluation-Measures"><span class="nav-number">1.0.5.</span> <span class="nav-text">Evaluation Measures</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zacks Chen"
+      src="/images/icon.jpeg">
+  <p class="site-author-name" itemprop="name">Zacks Chen</p>
+  <div class="site-description" itemprop="description">记录研究生生活</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Referring-Expression-Comprehension/" rel="tag">Referring Expression Comprehension</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visual-Grounding/" rel="tag">Visual Grounding</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zacks Chen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">4k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4 分钟</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
+    <!-- 页面点击小红心 -->
+    <script type="text/javascript" src="/js/clicklove.js"></script>
