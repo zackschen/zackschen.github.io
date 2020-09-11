@@ -3,7 +3,7 @@
   <entry>
     <title>Referring Expression Comprehension:A Survey of Methods and Datasets</title>
     <url>/2020/09/10/VG%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="Referring-Expression-Comprehension-A-Survey-of-Methods-and-Datasets"><a href="#Referring-Expression-Comprehension-A-Survey-of-Methods-and-Datasets" class="headerlink" title="Referring Expression Comprehension: A Survey of Methods and Datasets"></a>Referring Expression Comprehension: A Survey of Methods and Datasets</h1><h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><h5 id="Visual-Grounding："><a href="#Visual-Grounding：" class="headerlink" title="Visual Grounding："></a>Visual Grounding：</h5><p> 从一个描述场景的句子中，根据句中的多个名词短语，从图片中选出与名词短语匹配的多个目标区域。</p>
+    <content><![CDATA[<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><h5 id="Visual-Grounding："><a href="#Visual-Grounding：" class="headerlink" title="Visual Grounding："></a>Visual Grounding：</h5><p> 从一个描述场景的句子中，根据句中的多个名词短语，从图片中选出与名词短语匹配的多个目标区域。</p>
 <h5 id="Referring-Expression-Comprehension："><a href="#Referring-Expression-Comprehension：" class="headerlink" title="Referring Expression Comprehension："></a>Referring Expression Comprehension：</h5><p>根据给定的表达，从图片中选出最佳匹配的区域。</p>
 <p>两者都需要理解所给<strong>描述的语义</strong>以及<strong>图片的视觉信息</strong>，并找出其中的目标、属性、区域等关系来进行匹配。</p>
 <a id="more"></a>
