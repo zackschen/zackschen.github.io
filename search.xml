@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Learning cross-modal context graph for visual grounding笔记</title>
+    <url>/2020/09/12/Learning%20cross-modal%20context%20graph%20for%20visual%20grounding%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>主要思想是利用语言描述为所有基础实体及其关系建立有效的全局上下文表示，这使我们能够从图像生成一组高质量的目标proposal，并开发出上下文感知的跨模式匹配策略。</p>
+<p>作者开发了一个基于模块化的图网络，由4部分构成：</p>
+<p>1.主干网络来提取基本的语言和视觉特征；</p>
+<p>2.短语图网络来编码句子描述中的短语；</p>
+<p>3.视觉目标图计算目标proposal的特征；</p>
+<p>4.相似图网络来对短语和proposal进行全局匹配。</p>
+<a id="more"></a>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>现在的visual grounding对文字处理还主要集中在表述中的单个短语，缺乏对上下文的整体信息学习。该论文通过学习一种语言导向的图来学习grounding目标的全局信息和他们之间的联系，来实现更好的性能。</p>
+<h2 id="整体流程："><a href="#整体流程：" class="headerlink" title="整体流程："></a>整体流程：</h2><p>通过backbone网络来计算出描述的语言embedding和初始化proposals。通过语言场景图来合并语言上下文，其中节点代表名词，边代表这些词语之间的关系。然后使用第二个模块短语图网络，基于前面的语言场景图来通过消息传递来计算出一个对上下文敏感的短语表示。然后使用短语图作为一个导向，来创建视觉场景图，其中节点代表和短语相关的proposal，边代表短语图中相对应的联系。然后使用基于视觉场景图的视觉目标图来生成对上下文敏感的目标表示。最后，通过相似图网络基于节点和边，来预测这2个图的全局匹配程度。</p>
+<h3 id="整体流程图"><a href="#整体流程图" class="headerlink" title="整体流程图"></a>整体流程图</h3><p><img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200913160619.png" alt=""></p>
+<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><h3 id="1-Backbone-Network"><a href="#1-Backbone-Network" class="headerlink" title="1.Backbone Network"></a>1.Backbone Network</h3><p>$I$:输入图片</p>
+<p>$Q$:输入语句</p>
+<p>该网络由2个子网络组成：1个卷积网络来生成目标proposal，1个RNN网络来编码短语。</p>
+<p>1.卷积网络采用ResNet-101来生成维度为$D_0$的特征图$\Gamma$，然后使用Region Proposal Network (RPN) 来初始化proposal的集合$O=\{o_m\}^M_{m=1}$，$o_m$表示目标区域(bounding box)，于每个$o_m$使用RoI-Align和average pooling来生成特征向量$X{^a_{o_m}}$，也使用卷积特性中的相对位置编码成空间特征向量$X{^s_{o_m}}$，然后一起组成目标表示</p>
+<script type="math/tex; mode=display">
+X_{o_m}=F_{vf}([X{^a_{o_m}};X{^s_{o_m}}])</script><p>其中;表示级联操作，$F_{vf}$表示多层FC网络。</p>
+<p>2.对于语言特性，我们先生成名称短语的embedding——$p_i$，然后我们通过Bi-directional GRU来生成一串词语embedding——$\{h_t\}_{t=1…T}$，其中T代表句子中单词的数量。然后通过对每个$p_i$计算average pooling来计算短语特性表示$X_{pi}$：</p>
+<script type="math/tex; mode=display">
+[h_1,h_2,...,h_T]=BiGRU_p(Q)</script><script type="math/tex; mode=display">
+X_{pi}=\frac{1}{|p_i|}\Sigma h_t ,    i=1,....N</script><h3 id="2-Phrase-Graph-Network"><a href="#2-Phrase-Graph-Network" class="headerlink" title="2.Phrase Graph Network"></a>2.Phrase Graph Network</h3><p>通过在描述中加入短语关系提示来完善初始短语embedding特征。</p>
+<p>采用现成的场景图解析器来冲描述中构建语言场景图，同时也提取出了短语之间的联系$R={r_{ij}}$，$r_{ij}$是短语$p_i$和$p_j$之间的联系。语言场景图使用$G_L=\{P,R\}$来表示，其中$P$表示短语节点，$R$表示节点之间的边。同时也使用BiGRU来对每个$r_{ij}$计算embedding$X_{r_{ij}}$。</p>
+<p>然后在途中使用消息传递来生成对所有节点和边的上下文敏感的表述。</p>
+<p>消息传递分两种，第一种：通过名词短语的特性来通过聚合更新短语之间的联系。</p>
+<script type="math/tex; mode=display">
+X^c_{r_{ij}}=X_{r_{ij}}+F^l_e([X_{pi};X_{pj};X_{r_{ij}}])</script><p>$F^l_e$表示多FC层的网络。</p>
+<p>第二种：通过使用attention机制来聚合周围节点$N(i)$和边来更新每个节点$p_i$。</p>
+<script type="math/tex; mode=display">
+X^c_{p_{i}}=X_{pi}+\Sigma \omega_{pij}F^l_p([X_{pj};X^c_{r_{ij}}])</script><p>$\omega_{p_{ij}}$是$p_i$和$p_j$之间的attention的权重值。</p>
+<script type="math/tex; mode=display">
+\omega_{p_{ij}}=Softmax(F^l_p([X_{pi};X^c_{r_{ij}}]))^\tau F^l_p([X_{pj};X^c_{r_{ij}}])</script><h3 id="3-Visual-Object-Graph-Network"><a href="#3-Visual-Object-Graph-Network" class="headerlink" title="3.Visual Object Graph Network"></a>3.Visual Object Graph Network</h3><p>通过在视觉图上进行消息传递来丰富目标的特性。</p>
+<p>首先，对每个短语$p_i$选取出少量的最高质量proposal，然后通过回归偏移来调整所选proposal的位置，然后组成$G_V$图即视觉场景图。</p>
+<p>然后通过2种消息传递来增强视觉特征，第一种通过融合他们的主体目标之间节点特性来更新关系特性，第二种也是通过attention从它周围节点和相应边来聚合特性以更新每个目标节点。</p>
+<h3 id="4-Graph-Similarity-Network"><a href="#4-Graph-Similarity-Network" class="headerlink" title="4.Graph Similarity Network"></a>4.Graph Similarity Network</h3><p>通过得到的短语图和视觉图，将visual grounding转换为2个图匹配的问题。为此，作者提出了一种图匹配网络来测试2个图之间节点和边的匹配程度。</p>
+<h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><p>使用Flickr30K数据集来验证，该数据集包含32k图片, 275k bounding boxes, 和360k名词短语。</p>
+<p>从RPN中生成的proposal数量为$M=100$，对每个名词短语，选取其$K=10$个最相关的候选目标。</p>
+<p>使用SGD优化器，$learning rate=5e-2$，weight decay为1e-4，momentum为0.9，batch-size为24，60k iteration。</p>
+<p>Flickr30K数据集中的数据样本：</p>
+<p><img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200914125050.png" alt=""></p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>将backbone使用ResNet-50和ResNet-101的结果与其他的SOTA模型进行对比。</p>
+<p>可以看到，该模型通过图学习各proposal之间的关联，确实对性能有所提高。</p>
+<p><img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200913160642.png" style="zoom: 67%;" /><br>同时也对数据集中不同的粗略类别进行了对比，可以看到在大部分的类别中，该模型都有较好的性能。<br><img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200913160643.png" style="zoom:67%;" /></p>
+<h3 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h3><p>对各个模块进行消融实验。</p>
+<p>Baseline代表前面几种图都未使用，达到了73.46%，和Table 1的DDPN的效果差不多。</p>
+<p>PGN代表Phrase Graph Net，PGN通过场景图结构有效地传播语言上下文信息和他们之间的联系信息，精确度提升到了74.40%</p>
+<p>PP代表Proposal Pruning，使用PGN来进行PP，能够帮助减少语言对应proposal的歧义性。</p>
+<p>VOGN代表Visual Object Graph Net，</p>
+<p>SP代表Structured Prediction，使用跨模态之间的联系和全局信息，将精确度提升到了76.19%</p>
+<p>右边的表表示是否采取PGN中的$X^c_{r_{ij}}$和VOGN中的$X^c_{u_{ij,kl}}$，可以看到，如果没有采取其中的联系，性能均有所下降。</p>
+<p><img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200913160644.png" style="zoom:67%;" /></p>
+<p>对不同的K值选取进行实验，可见在$K=10$时效果最好。在$K=20$时，性能也差不多，但是消耗的计算量更大。</p>
+<p><img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200913173258.png" style="zoom:67%;" /></p>
+]]></content>
+      <categories>
+        <category>Visual Grounding</category>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>Visual Grounding</tag>
+        <tag>Graph</tag>
+        <tag>Cross-model</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Referring Expression Comprehension:A Survey of Methods and Datasets</title>
     <url>/2020/09/10/VG%20survey%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><h5 id="Visual-Grounding："><a href="#Visual-Grounding：" class="headerlink" title="Visual Grounding："></a>Visual Grounding：</h5><p> 从一个描述场景的句子中，根据句中的多个名词短语，从图片中选出与名词短语匹配的多个目标区域。</p>
@@ -54,65 +119,6 @@
       <tags>
         <tag>Visual Grounding</tag>
         <tag>Referring Expression Comprehension</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Learning cross-modal context graph for visual grounding笔记</title>
-    <url>/2020/09/12/Learning%20cross-modal%20context%20graph%20for%20visual%20grounding%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>主要思想是利用语言描述为所有基础实体及其关系建立有效的全局上下文表示，这使我们能够从图像生成一组高质量的目标proposal，并开发出上下文感知的跨模式匹配策略。</p>
-<p>作者开发了一个基于模块化的图网络，由4部分构成：</p>
-<p>1.主干网络来提取基本的语言和视觉特征；</p>
-<p>2.短语图网络来编码句子描述中的短语；</p>
-<p>3.视觉目标图计算目标proposal的特征；</p>
-<p>4.相似图网络来对短语和proposal进行全局匹配。</p>
-<a id="more"></a>
-<h2 id="整体流程："><a href="#整体流程：" class="headerlink" title="整体流程："></a>整体流程：</h2><p>通过backbone网络来计算出描述的语言embedding和初始化proposals。通过语言场景图来合并语言上下文，其中节点代表名词，边代表这些词语之间的关系。然后使用第二个模块短语图网络，基于前面的语言场景图来通过消息传递来计算出一个对上下文敏感的短语表示。然后使用短语图作为一个导向，来创建视觉场景图，其中节点代表和短语相关的proposal，边代表短语图中相对应的联系。然后使用基于视觉场景图的视觉目标图来生成对上下文敏感的目标表示。最后，通过相似图网络基于节点和边，来预测这2个图的全局匹配程度。</p>
-<h3 id="整体流程图"><a href="#整体流程图" class="headerlink" title="整体流程图"></a>整体流程图</h3><p><img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200913160619.png" alt=""></p>
-<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><h3 id="1-Backbone-Network"><a href="#1-Backbone-Network" class="headerlink" title="1.Backbone Network"></a>1.Backbone Network</h3><p>$I$:输入图片</p>
-<p>$Q$:输入语句</p>
-<p>该网络由2个子网络组成：1个卷积网络来生成目标proposal，1个RNN网络来编码短语。</p>
-<p>1.卷积网络采用ResNet-101来生成维度为$D_0$的特征图$\Gamma$，然后使用Region Proposal Network (RPN) 来初始化proposal的集合$O=\{o_m\}^M_{m=1}$，$o_m$表示目标区域(bounding box)，于每个$o_m$使用RoI-Align和average pooling来生成特征向量$X{^a_{o_m}}$，也使用卷积特性中的相对位置编码成空间特征向量$X{^s_{o_m}}$，然后一起组成目标表示</p>
-<script type="math/tex; mode=display">
-X_{o_m}=F_{vf}([X{^a_{o_m}};X{^s_{o_m}}])</script><p>其中;表示级联操作，$F_{vf}$表示多层FC网络。</p>
-<p>2.对于语言特性，我们先生成名称短语的embedding——$p_i$，然后我们通过Bi-directional GRU来生成一串词语embedding——$\{h_t\}_{t=1…T}$，其中T代表句子中单词的数量。然后通过对每个$p_i$计算average pooling来计算短语特性表示$X_{pi}$：</p>
-<script type="math/tex; mode=display">
-[h_1,h_2,...,h_T]=BiGRU_p(Q)</script><script type="math/tex; mode=display">
-X_{pi}=\frac{1}{|p_i|}\Sigma h_t ,    i=1,....N</script><h3 id="2-Phrase-Graph-Network"><a href="#2-Phrase-Graph-Network" class="headerlink" title="2.Phrase Graph Network"></a>2.Phrase Graph Network</h3><p>通过在描述中加入短语关系提示来完善初始短语embedding特征。</p>
-<p>采用现成的场景图解析器来冲描述中构建语言场景图，同时也提取出了短语之间的联系$R={r_{ij}}$，$r_{ij}$是短语$p_i$和$p_j$之间的联系。语言场景图使用$G_L=\{P,R\}$来表示，其中$P$表示短语节点，$R$表示节点之间的边。同时也使用BiGRU来对每个$r_{ij}$计算embedding$X_{r_{ij}}$。</p>
-<p>然后在途中使用消息传递来生成对所有节点和边的上下文敏感的表述。</p>
-<p>消息传递分两种，第一种：通过名词短语的特性来通过聚合更新短语之间的联系。</p>
-<script type="math/tex; mode=display">
-X^c_{r_{ij}}=X_{r_{ij}}+F^l_e([X_{pi};X_{pj};X_{r_{ij}}])</script><p>$F^l_e$表示多FC层的网络。</p>
-<p>第二种：通过使用attention机制来聚合周围节点$N(i)$和边来更新每个节点$p_i$。</p>
-<script type="math/tex; mode=display">
-X^c_{p_{i}}=X_{pi}+\Sigma \omega_{pij}F^l_p([X_{pj};X^c_{r_{ij}}])</script><p>$\omega_{p_{ij}}$是$p_i$和$p_j$之间的attention的权重值。</p>
-<script type="math/tex; mode=display">
-\omega_{p_{ij}}=Softmax(F^l_p([X_{pi};X^c_{r_{ij}}]))^\tau F^l_p([X_{pj};X^c_{r_{ij}}])</script><h3 id="3-Visual-Object-Graph-Network"><a href="#3-Visual-Object-Graph-Network" class="headerlink" title="3.Visual Object Graph Network"></a>3.Visual Object Graph Network</h3><p>通过在视觉图上进行消息传递来丰富目标的特性。</p>
-<p>首先，对每个短语$p_i$选取出少量的最高质量proposal，然后通过回归偏移来调整所选proposal的位置，然后组成$G_V$图即视觉场景图。</p>
-<p>然后通过2种消息传递来增强视觉特征，第一种通过融合他们的主体目标之间节点特性来更新关系特性，第二种也是通过attention从它周围节点和相应边来聚合特性以更新每个目标节点。</p>
-<h3 id="4-Graph-Similarity-Network"><a href="#4-Graph-Similarity-Network" class="headerlink" title="4.Graph Similarity Network"></a>4.Graph Similarity Network</h3><p>通过得到的短语图和视觉图，将visual grounding转换为2个图匹配的问题。为此，作者提出了一种图匹配网络来测试2个图之间节点和边的匹配程度。</p>
-<h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><p>使用Flickr30K数据集来验证，该数据集包含32k图片, 275k bounding boxes, 和360k名词短语。</p>
-<p>从RPN中生成的proposal数量为$M=100$，对每个名词短语，选取其$K=10$个最相关的候选目标。</p>
-<p>使用SGD优化器，$learning rate=5e-2$，weight decay为1e-4，momentum为0.9，batch-size为24，60k iteration。</p>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>将backbone使用ResNet-50和ResNet-101的结果与其他的SOTA模型进行对比。</p>
-<p><img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200913160642.png" style="zoom: 67%;" /><br>同时也对数据集中不同的目标进行了对比。<br><img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200913160643.png" style="zoom:67%;" /></p>
-<h3 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h3><p>对各个模块进行消融实验。</p>
-<p>PGN代表Phrase Graph Net</p>
-<p>PP代表Proposal Pruning</p>
-<p>VOGN代表Visual Object Graph Net</p>
-<p>SP代表Structured Prediction</p>
-<p><img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200913160644.png" style="zoom:67%;" /></p>
-<p>对不同的K值选取进行实验，可见在$K=10$时效果最好</p>
-<p><img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200913173258.png" style="zoom:67%;" /></p>
-]]></content>
-      <categories>
-        <category>Visual Grounding</category>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>Visual Grounding</tag>
-        <tag>Graph</tag>
-        <tag>Cross-model</tag>
       </tags>
   </entry>
 </search>
