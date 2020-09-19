@@ -21,19 +21,29 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Bookmark for NexT  Introduce  Bookmark is a plugin that allow the users save their reading position. The users could just click the bookmark icon (like 🔖) in left-top of the page to save the position">
-<meta property="og:type" content="website">
-<meta property="og:title" content="不要和孙家人对波">
-<meta property="og:url" content="http://yoursite.com/lib/bookmark/README.html">
+  <meta name="description" content="简介现目前的referring expression comprehension都是一种2段式方法：首先，使用类似Faster RCNN的目标检测器来生成一系列目标的proposal，然后，计算proposal和语言描述中的匹配度来选取最佳的目标。 这种方法有2个问题：1，目标检测阶段有额外的计算量，大量的proposal需要大量的计算来获取其中的feature，这样在实际的实时referring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Fast and Accurate One-Stage Approach to Visual Grounding笔记">
+<meta property="og:url" content="http://yoursite.com/2020/09/18/A%20Fast%20and%20Accurate%20One-Stage%20Approach%20to%20Visual%20Grounding/index.html">
 <meta property="og:site_name" content="不要和孙家人对波">
-<meta property="og:description" content="Bookmark for NexT  Introduce  Bookmark is a plugin that allow the users save their reading position. The users could just click the bookmark icon (like 🔖) in left-top of the page to save the position">
+<meta property="og:description" content="简介现目前的referring expression comprehension都是一种2段式方法：首先，使用类似Faster RCNN的目标检测器来生成一系列目标的proposal，然后，计算proposal和语言描述中的匹配度来选取最佳的目标。 这种方法有2个问题：1，目标检测阶段有额外的计算量，大量的proposal需要大量的计算来获取其中的feature，这样在实际的实时referring">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-09-13T13:17:25.358Z">
-<meta property="article:modified_time" content="2020-09-06T05:42:14.473Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200919095051.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200919104550.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200919104558.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200919133639.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200919141432.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200919144022.png">
+<meta property="article:published_time" content="2020-09-18T07:35:30.155Z">
+<meta property="article:modified_time" content="2020-09-19T06:46:18.064Z">
 <meta property="article:author" content="Zacks Chen">
+<meta property="article:tag" content="Visual Grounding">
+<meta property="article:tag" content="One-Stage">
+<meta property="article:tag" content="Cross-model">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200919095051.png">
 
-<link rel="canonical" href="http://yoursite.com/lib/bookmark/README">
+<link rel="canonical" href="http://yoursite.com/2020/09/18/A%20Fast%20and%20Accurate%20One-Stage%20Approach%20to%20Visual%20Grounding/">
 
 
 <script id="page-configurations">
@@ -41,13 +51,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title> | 不要和孙家人对波
-</title>
+  <title>A Fast and Accurate One-Stage Approach to Visual Grounding笔记 | 不要和孙家人对波</title>
   
 
 
@@ -186,85 +195,164 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="zh-CN">
-      <header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">
-</h1>
-
-<div class="post-meta">
   
-  <ul class="breadcrumb">
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/18/A%20Fast%20and%20Accurate%20One-Stage%20Approach%20to%20Visual%20Grounding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.jpeg">
+      <meta itemprop="name" content="Zacks Chen">
+      <meta itemprop="description" content="记录研究生生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不要和孙家人对波">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          A Fast and Accurate One-Stage Approach to Visual Grounding笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-18 15:35:30" itemprop="dateCreated datePublished" datetime="2020-09-18T15:35:30+08:00">2020-09-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-19 14:46:18" itemprop="dateModified" datetime="2020-09-19T14:46:18+08:00">2020-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Visual-Grounding/" itemprop="url" rel="index"><span itemprop="name">Visual Grounding</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Visual-Grounding/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
           
-            <li><a href="/lib/">LIB</a></li>
-            <li><a href="/lib/bookmark/">BOOKMARK</a></li>
-            <li>README</li>
-          
-  </ul>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/09/18/A%20Fast%20and%20Accurate%20One-Stage%20Approach%20to%20Visual%20Grounding/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/18/A%20Fast%20and%20Accurate%20One-Stage%20Approach%20to%20Visual%20Grounding/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
 
-</div>
+        </div>
+      </header>
 
-</header>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-      
-      
-      <div class="post-body">
-          <h1 align="center">Bookmark for <a target="_blank" rel="noopener" href="https://github.com/theme-next">NexT</a></h1>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>现目前的referring expression comprehension都是一种2段式方法：首先，使用类似Faster RCNN的目标检测器来生成一系列目标的proposal，然后，计算proposal和语言描述中的匹配度来选取最佳的目标。</p>
+<p>这种方法有2个问题：1，目标检测阶段有额外的计算量，大量的proposal需要大量的计算来获取其中的feature，这样在实际的实时referring expression comprehension中不可行。2，第一个阶段中提出的proposal会影响到第二阶段的计算，现目前的目标检测器在实际情况下的性能有限，可能会阻碍到第二阶段的进行；甚至于第一阶段的目标检测未检测出目标proposal，那第二阶段的工作都浪费了。</p>
+<a id="more"></a>
+<p>这种一阶段方法的相比于两阶段的方法有如下优点：</p>
+<p>首先，它比两阶段的快，它仅需通过一次即可从输入图像中提取特征，然后直接预测输出区域的坐标，该论文实现的速度比最新的两阶段方法快约10倍。</p>
+<p>另外，它也比较准确，与两阶段框架的性能受阶段限制不同，它可以实现端到端优化。</p>
+<p>最后，与两阶段方法相比，它可以更好地推广到不同的数据集，因为它不依赖于任何其他工具或预先训练的模型。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>将描述文本embedding传入YOLOv3中，使用空间特征来进行增强，使用softmax来替代sigmoid输出层，最后使用YOLO loss来训练网络，这种网络在精确度和速度上都有良好的效果。</p>
+<p>整体流程图：</p>
+<p><img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200919095051.png" alt=""></p>
+<p>对于描述语句，使用Bert来输出一个768D的实数vector，然后接2层有512个神经元的FC层。</p>
+<p>对于图像，使用Darknet53和特征金字塔网络(FPN)来输出视觉特征，第一层为8×8×1024，第二层为16×16×512，第三层为32×32×256。然后使用3个1×1的卷积结合BN和RELU来输出到同样512的纬度。</p>
+<p>作者发现描述语句有空间信息，但是使用Darknet出来的特征不具备空间信息，所以使用额外的方法来获取图片的空间信息。对每个层获取$W^{‘}×H^{‘}×D_{spatial}$的空间特性，$W^{‘}$和$H^{‘}$分别代表8×8，16×16，32×32，$D_{spatial}=8$，代表取8个空间特征。将左上和右下设置为(0,0)和(1,1)，则选取的8个点为</p>
+<script type="math/tex; mode=display">
+(\frac{i}{W^{'}},\frac{j}{H^{'}},\frac{i+0.5}{W^{'}},\frac{j+0.5}{H^{'}},\frac{i+1}{W^{'}},\frac{j+1}{H^{'}},\frac{1}{W^{'}},\frac{1}{H^{'}})</script><p>i从0到$W^{‘}-1$，j从0到$H^{‘}-1$。</p>
+<p>融合部分：将描述语句、图像和空间信息l2归一化后进行级联，生成一个$512+512+8=1032D$的特征vector，然后使用一个1×1的卷积来更好的融合（作者也使用了3×3的卷积以期望特征能对周围有感知，但效果和1×1差不多），形成了3个512D的特征vector。</p>
+<p>有8×8+16×16+32×32=1344个位置，每个位置有一个512D的特征vector，使用YOLOv3在每个位置中心生成3个boxes，然后使用(1-IoU)作为距离来做K-means聚类。然后YOLOv3通过回归和改变后的置信度来改变每个box。然后使用softmax来替代sigmoid，在softmax和one-hot vector做一个交叉熵loss，来输出最高IoU的box。</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>实验的结果如下<img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200919104550.png" style="zoom:67%;" /></p>
+<p>Region Proposals代表使用了那种Region Proposals技术和每个proposal的数量。其中Edgebox和selective search是较为常规的2种技术。</p>
+<p>Visual Features列出了哪种backbone网络以及在哪种数据集下进行的预学习。</p>
+<p>Language Embedding列出对描述语言使用哪种embedding技术。</p>
+<p>通过LSTM和Bert可以看出，语言embedding技术对结果的影响很轻微。而空间信息对结果很关键，提升达到1.6%。</p>
+<p><img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200919104558.png" alt=""></p>
+<p>通过2个Time实验结果都可以看出，该模型的速度比以往的2阶段模型更加快速。</p>
+<p>作者对比了1阶段和2阶段模型的提升，认为2阶段模型效果没1阶段好的原因是2阶段不能避免不正确的proposal。因此，作者对比了不同模型proposal的命中率</p>
+<p><img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200919133639.png" alt=""></p>
+<p>可以看到，在Flicker30K的命中率比ReferitGame的高，这也解释了为什么各模型在Flickr30K Entities的效果比在ReferitGame好的原因。可以看到，通过ones-stage技术的命中率高不少，可以看出通过端对端学习，能够提升不小的命中率。</p>
+<p>通过Edgebox在ReferItGame上面的proposal来看。<img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200919141432.png" alt=""></p>
+<p>小的物体通常很难命中，而且多目标的proposal命中率也不高，可能是因为每个proposal都是针对单一目标生成的紧凑型box。</p>
+<p><img src="https://raw.githubusercontent.com/zackschen/PictureBed/master/20200919144022.png" alt="截屏2020-09-19 下午2.32.15"></p>
+<p>上图展示了该网络的一些成功和失败的案例。</p>
+<p>a为多目标的匹配，b为小目标的匹配，c和d表示该模型能够使用描述中的位置信息，f表示能够定位多个目标。</p>
+<p>下图为失败案，表明该模型对模型并不敏感，例如g和k中的blue属性。j和i则是有歧义的目标匹配。</p>
 
-<h2 align="center">Introduce</h2>
-
-<p>Bookmark is a plugin that allow the users save their reading position.</p>
-<p>The users could just click the bookmark icon (like 🔖) in left-top of the page to save the position.</p>
-<p>And when they visit your blog in the next time, they can continue the last reading position by clicking the bookmark icon from the home page.</p>
-<h1 align="center">Installation</h1>
-
-<h2>If you want to use the CDN instead of clone this repo, please jump to the Step 3.</h2>
-
-<h2 align="center">Step 1 &rarr; Go to NexT dir</h2>
-
-<p>Change dir to <strong>NexT</strong> directory. There must be <code>layout</code>, <code>source</code>, <code>languages</code> and other directories:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> themes/next</span><br><span class="line">$ ls</span><br><span class="line">bower.json  _config.yml  docs  gulpfile.coffee  languages  layout  LICENSE.md  package.json  README.md  scripts  <span class="built_in">source</span>  <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-<h2 align="center">Step 2 &rarr; Get module</h2>
-
-<p>Install module to <code>source/lib</code> directory:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/theme-next/theme-next-bookmark.git <span class="built_in">source</span>/lib/bookmark</span><br></pre></td></tr></table></figure>
-<h2 align="center">Step 3 &rarr; Set it up</h2>
-
-<p>Enable module in <strong>NexT</strong> <code>_config.yml</code> file:</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">bookmark:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p><strong>And, if you wants to use the CDN, then need to set:</strong></p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">vendors:</span></span><br><span class="line">  <span class="string">...</span></span><br><span class="line">  <span class="attr">bookmark:</span> <span class="string">https://cdn.jsdelivr.net/gh/theme-next/theme-next-bookmark@latest/bookmark.min.js</span></span><br></pre></td></tr></table></figure>
-<h1 align="center">Update</h1>
-
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> themes/next/<span class="built_in">source</span>/lib/bookmark</span><br><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
-
-      </div>
-      
-      
-      
     </div>
-    
-  <ul class="breadcrumb">
-          
-            <li><a href="/lib/">LIB</a></li>
-            <li><a href="/lib/bookmark/">BOOKMARK</a></li>
-            <li>README</li>
-          
-  </ul>
 
     
     
     
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Visual-Grounding/" rel="tag"># Visual Grounding</a>
+              <a href="/tags/One-Stage/" rel="tag"># One-Stage</a>
+              <a href="/tags/Cross-model/" rel="tag"># Cross-model</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/12/Learning%20cross-modal%20context%20graph%20for%20visual%20grounding%E7%AC%94%E8%AE%B0/" rel="prev" title="Learning cross-modal context graph for visual grounding笔记">
+      <i class="fa fa-chevron-left"></i> Learning cross-modal context graph for visual grounding笔记
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
 
 
           </div>
@@ -316,7 +404,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Bookmark for NexT</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">Introduce</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Installation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">If you want to use the CDN instead of clone this repo, please jump to the Step 3.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">Step 1 &amp;rarr; Go to NexT dir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.3.</span> <span class="nav-text">Step 2 &amp;rarr; Get module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.4.</span> <span class="nav-text">Step 3 &amp;rarr; Set it up</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">Update</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">结果</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
