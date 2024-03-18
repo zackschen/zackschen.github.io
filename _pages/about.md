@@ -27,7 +27,7 @@ Now the focus of my research is mainly on investigating the behavior of Multimod
 <span class='anchor' id='-news'></span>
 
 # 🔥 News
-- *2023.10*: 🎉 Attainment of National Scholarship.
+- *2023.10*: 🎉 Received National Scholarship Award.
 - *2023.07*: 🎉 One paper was accepted by ACM Multimedia 2023.
 - *2022.07*: 🎉 One paper was accepted by IEEE Transactions on Image Processing (TIP).
 - *2022.07*: 🎉 One paper was accepted by ACM Multimedia 2022.
