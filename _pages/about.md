@@ -44,14 +44,14 @@ Southwest Petroleum University, School of Chemistry & Chemical Engineering, Secu
 
 # 📝 Publications
 ---
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Arxiv</div><img src='images/CoIN_architecture.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">NeurIPS</div><img src='images/CoIN_architecture.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [CoIN: A Benchmark of Continual Instruction tuNing for Multimodel Large Language Model](https://arxiv.org/abs/2403.08350)
 
 `Cheng Chen`, Junchen Zhu, Xu Luo, Hengtao Shen, Lianli Gao, Jingkuan Song. 
 
-Arxiv 2024
+NeurIPS 2024 Datasets and Benchmarks
 
 Keywords: Continual Learning, Instruction Tuning, Multimodel Large Language Model
 
