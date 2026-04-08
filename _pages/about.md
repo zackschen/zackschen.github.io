@@ -40,11 +40,57 @@ Now the focus of my research is mainly on investigating the behavior of Multimod
 - *2020.09 - 2022.06*, Master, <a href="https://en.uestc.edu.cn/"><img class="png" src="/images/UESTC_logo.png" width="20pt"></a> University of Electronic Science and Technology of China, School of Computer Science and Engineering, Computer Science and Technology, Chengdu, China
 - *2010.09 - 2014.06*, Bachelor, <a href="https://www.swpu.edu.cn/"><img class="png" src="/images/SWPU_logo.png" width="23pt"></a> 
 Southwest Petroleum University, School of Chemistry & Chemical Engineering, Security Engineering, Chengdu, China.
- 
+
+
 <span class='anchor' id='-lwzl'></span>
 
 # 📝 Publications
 ---
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Submitted</div><img src='images/Janus-LoRA.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[JANUS-LORA: A Balanced Low-Rank Adaptation for Continual Learning]
+
+`Cheng Chen`, Pengpeng Zeng, Yuyu Guo, Jingkuan Song, Heng Tao Shen, Lianli Gao 
+
+Submitted to ICML 2026
+
+Keywords: Continual Learning, LoRA, Gradient Porjection
+
+</div>
+</div>
+
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Submitted</div><img src='images/CLI_architecture.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[From One-to-One to Many-to-Many: Dynamic Cross-Layer Injection for Deep Vision-Language Fusion]
+
+`Cheng Chen` (Equal First Author), Yuyu Guo, Pengpeng Zeng, Jingkuan Song, Peng Di, Hang Yu, Lianli Gao
+
+Submitted to ECCV 2026
+
+Keywords: Vision Fusion, Instruction Tuning, Multimodel Large Language Model
+
+[[Arxiv]](https://arxiv.org/pdf/2601.10710)
+
+</div>
+</div>
+
+
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Submitted</div><img src='images/VLZip_architecture.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[VLZip: Unified Visual and Textual Compression for Interleaved Long-Context Modeling]
+
+Yuqi Zhang, `Cheng Chen`(Equal First Author), Yuyu Guo, Wenjie Yang, Lingchen Meng, Peng Di, Hang Yu, Zuxuan Wu, Yu-Gang Jiang
+
+Submitted to ECCV 2026
+
+Keywords: Ultra-long, interleaved image-text, Instruction Tuning, Multimodel Large Language Model
+
+</div>
+</div>
+
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">NeurIPS</div><img src='images/CoIN_architecture.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
@@ -61,7 +107,7 @@ Keywords: Continual Learning, Instruction Tuning, Multimodel Large Language Mode
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Arxiv</div><img src='images/IBM_architecture.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Patten Recognition</div><img src='images/IBM_architecture.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [Towards Redundancy-Free Sub-networks in Continual Learning](https://arxiv.org/abs/2312.00840)
@@ -125,9 +171,16 @@ Keywords: Continual Learning, Gradient Porjection, SVD
 </div>
 </div> 
 
+<span class='anchor' id='-gzsx'></span>
+# 💼 Internships
+- *2025.06 - 2026.01*, Research Intern, Ant Group, Multimodal Large Language Models
+
+Built a 280K+ token ultra-long-context dataset from videos and documents for long-range reasoning, proposed Cross-Layer Injection (CLI) for many-to-many vision-language fusion, and achieved state-of-the-art results on 18 benchmarks for fine-grained perception.
+
 <span class='anchor' id='-ryjx'></span>
 
 # 🥇 Honors and Awards
+- *2025* Sichuan Computer Federation (SCF) Annual Outstanding Student Paper Award, SCF
 - *2023* National Scholarship, UESTC
 - *2023* Outstanding Graduate Student Award, UESTC 
 - *2023* Academic First Prize Scholarship, UESTC
