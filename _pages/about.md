@@ -27,6 +27,7 @@ Now the focus of my research is mainly on investigating the behavior of Multimod
 <span class='anchor' id='-news'></span>
 
 # 🔥 News
+- *2026.05*: 🎉 One paper was accepted by ICML 2026.
 - *2024.10*: 🎉 One paper was accepted by NeurIPS 2024.
 - *2023.10*: 🎉 Received National Scholarship Award.
 - *2023.07*: 🎉 One paper was accepted by ACM Multimedia 2023.
@@ -56,6 +57,7 @@ Southwest Petroleum University, School of Chemistry & Chemical Engineering, Secu
 Submitted to ICML 2026
 
 Keywords: Continual Learning, LoRA, Gradient Porjection
+[[Arxiv]](https://arxiv.org/pdf/2605.28495) [[Github]](https://github.com/zackschen/Janus-LoRA)
 
 </div>
 </div>
