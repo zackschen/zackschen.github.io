@@ -47,14 +47,14 @@ Southwest Petroleum University, School of Chemistry & Chemical Engineering, Secu
 
 # 📝 Publications
 ---
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Submitted</div><img src='images/Janus-LoRA.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">ICML 2026</div><img src='images/Janus-LoRA.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [JANUS-LORA: A Balanced Low-Rank Adaptation for Continual Learning]
 
 `Cheng Chen`, Pengpeng Zeng, Yuyu Guo, Jingkuan Song, Heng Tao Shen, Lianli Gao 
 
-Submitted to ICML 2026
+ICML 2026
 
 Keywords: Continual Learning, LoRA, Gradient Porjection
 [[Arxiv]](https://arxiv.org/pdf/2605.28495) [[Github]](https://github.com/zackschen/Janus-LoRA)
@@ -93,7 +93,7 @@ Keywords: Ultra-long, interleaved image-text, Instruction Tuning, Multimodel Lar
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">NeurIPS</div><img src='images/CoIN_architecture.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">NeurIPS 2024</div><img src='images/CoIN_architecture.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [CoIN: A Benchmark of Continual Instruction tuNing for Multimodel Large Language Model](https://arxiv.org/abs/2403.08350)
@@ -109,7 +109,7 @@ Keywords: Continual Learning, Instruction Tuning, Multimodel Large Language Mode
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Patten Recognition</div><img src='images/IBM_architecture.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Patten Recognition 2025</div><img src='images/IBM_architecture.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [Towards Redundancy-Free Sub-networks in Continual Learning](https://arxiv.org/abs/2312.00840)
