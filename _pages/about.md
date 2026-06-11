@@ -67,7 +67,7 @@ Keywords: Continual Learning, LoRA, Gradient Porjection
 
 [From One-to-One to Many-to-Many: Dynamic Cross-Layer Injection for Deep Vision-Language Fusion]
 
-`Cheng Chen` (Equal First Author), Yuyu Guo, Pengpeng Zeng, Jingkuan Song, Peng Di, Hang Yu, Lianli Gao
+`Cheng Chen`, Yuyu Guo, Pengpeng Zeng, Jingkuan Song, Peng Di, Hang Yu, Lianli Gao
 
 Submitted to ECCV 2026
 
