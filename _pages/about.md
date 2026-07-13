@@ -63,7 +63,7 @@ Keywords: Continual Learning, LoRA, Gradient Porjection
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Submitted</div><img src='images/CLI_architecture.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">ECCV 2026</div><img src='images/CLI_architecture.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [From One-to-One to Many-to-Many: Dynamic Cross-Layer Injection for Deep Vision-Language Fusion]
@@ -80,7 +80,7 @@ Keywords: Vision Fusion, Instruction Tuning, Multimodel Large Language Model
 </div>
 
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Submitted</div><img src='images/VLZip_architecture.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">ECCV 2026</div><img src='images/VLZip_architecture.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [VLZip: Unified Visual and Textual Compression for Interleaved Long-Context Modeling]
