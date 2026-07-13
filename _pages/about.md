@@ -29,6 +29,7 @@ Now the focus of my research is mainly on investigating the behavior of Multimod
 # 🔥 News
 - *2026.06*: 🎉 Two papers were accepted by ECCV 2026.
 - *2026.05*: 🎉 One paper was accepted by ICML 2026.
+- *2026.01*: 🎉 Received SCF Annual Outstanding Student Paper Award.
 - *2024.10*: 🎉 One paper was accepted by NeurIPS 2024.
 - *2023.10*: 🎉 Received National Scholarship Award.
 - *2023.07*: 🎉 One paper was accepted by ACM Multimedia 2023.
