@@ -27,6 +27,7 @@ Now the focus of my research is mainly on investigating the behavior of Multimod
 <span class='anchor' id='-news'></span>
 
 # 🔥 News
+- *2026.06*: 🎉 Two papers were accepted by ECCV 2026.
 - *2026.05*: 🎉 One paper was accepted by ICML 2026.
 - *2024.10*: 🎉 One paper was accepted by NeurIPS 2024.
 - *2023.10*: 🎉 Received National Scholarship Award.
@@ -69,11 +70,11 @@ Keywords: Continual Learning, LoRA, Gradient Porjection
 
 `Cheng Chen`, Yuyu Guo, Pengpeng Zeng, Jingkuan Song, Peng Di, Hang Yu, Lianli Gao
 
-Submitted to ECCV 2026
+ECCV 2026
 
 Keywords: Vision Fusion, Instruction Tuning, Multimodel Large Language Model
 
-[[Arxiv]](https://arxiv.org/pdf/2601.10710)
+[[Arxiv]](https://arxiv.org/pdf/2601.10710) [[Github]](https://github.com/codefuse-ai/CLI) [[Model-7B]](https://huggingface.co/codefuse-ai/CLI-7B) [[Model-0.5B]](https://huggingface.co/codefuse-ai/CLI-0.5B)
 
 </div>
 </div>
@@ -86,9 +87,11 @@ Keywords: Vision Fusion, Instruction Tuning, Multimodel Large Language Model
 
 Yuqi Zhang, `Cheng Chen`(Equal First Author), Yuyu Guo, Wenjie Yang, Lingchen Meng, Peng Di, Hang Yu, Zuxuan Wu, Yu-Gang Jiang
 
-Submitted to ECCV 2026
+ECCV 2026
 
 Keywords: Ultra-long, interleaved image-text, Instruction Tuning, Multimodel Large Language Model
+
+[[Github]](https://github.com/ShareLab-SII/VLZip)
 
 </div>
 </div>
